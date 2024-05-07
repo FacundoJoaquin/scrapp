@@ -2,6 +2,16 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
+const Promise = require('bluebird'); 
+const ArmandoConstanza = require('./class/ArmandoConstanza');
+const Arnoldi = require('./class/Arnoldi');
+const Bounos = require('./class/Bounos');
+const Mallemacci = require('./class/Mallemacci');
+const Salcovsky = require('./class/Salcovsky');
+const Surwal = require('./class/Surwal');
+const ZZDeptos = require('./class/ZZDeptos');
+const { scrapeAndRespond } = require('./functions');
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -16,26 +26,37 @@ for (const file of scraperFiles) {
   scraperClasses.push(module.default || module);
 }
 
+
+
 app.get('/', (req, res) => {
   res.json('Api is working.');
 });
 
-app.get('/scrape', async (req, res) => {
-  try {
-    const results = await Promise.all(scraperClasses.map(async (ScraperClass) => {
-      const scraper = new ScraperClass();
-      const data = await scraper.scrape();
-      return data; 
-    }));
-
-    const output = results.reduce((acc, curr) => acc.concat(curr), []);
-
-    res.json(output);
-  } catch (err) {
-    const status = err.status || 500;
-    res.status(status).json({ error: 'Error en la automatización del navegador', details: err.toString() });
-  }
+app.get('/armando', async (req, res) => {
+  scrapeAndRespond(ArmandoConstanza, res);
 });
+app.get('/arnoldi', async (req, res) => {
+  scrapeAndRespond(Arnoldi, res);
+});
+app.get('/bounos', async (req, res) => {
+  scrapeAndRespond(Bounos, res);
+});
+app.get('/mallemacci', async (req, res) => {
+  scrapeAndRespond(Mallemacci, res);
+});
+app.get('/salcovsky', async (req, res) => {
+  scrapeAndRespond(Salcovsky, res);
+});
+app.get('/surwal', async (req, res) => {
+  scrapeAndRespond(Surwal, res);
+});
+app.get('/zz', async (req, res) => {
+  scrapeAndRespond(ZZDeptos, res);
+});
+
+
+
+
 
 
 module.exports = app;
