@@ -22,15 +22,11 @@ app.get('/', (req, res) => {
 
 app.get('/scrape', async (req, res) => {
   try {
-    const scrapePromises = scraperClasses.map(async (ScraperClass) => {
+    const results = await Promise.all(scraperClasses.map(async (ScraperClass) => {
       const scraper = new ScraperClass();
-      return Promise.race([
-        scraper.scrape(), // Scraper
-        new Promise((resolve, reject) => setTimeout(() => reject(new Error('Timeout')), 5000)) // Timeout de 5 segundos
-      ]);
-    });
-
-    const results = await Promise.all(scrapePromises);
+      const data = await scraper.scrape();
+      return data; 
+    }));
 
     const output = results.reduce((acc, curr) => acc.concat(curr), []);
 
@@ -40,7 +36,6 @@ app.get('/scrape', async (req, res) => {
     res.status(status).json({ error: 'Error en la automatización del navegador', details: err.toString() });
   }
 });
-
 
 
 module.exports = app;
