@@ -8,24 +8,13 @@ class Scraper {
   }
 
   async scrape() {
-    const isLocal = process.env.AWS_EXECUTION_ENV === undefined;
+    const executablePath = await chromium.executablePath();
+    const browser = await puppeteer.launch({
+      executablePath,
+      args: chromium.args,
+      headless: chromium.headless,
+    });
 
-    let browser;
-    if (isLocal) {
-      const executablePath = await edgeChromium.executablePath || '/usr/bin/google-chrome';
-      browser = await puppeteer.launch({ 
-        executablePath,
-        args: edgeChromium.args,
-        headless: true
-      });
-    } else {
-      const executablePath = await chromium.executablePath();
-      browser = await puppeteer.launch({
-        executablePath,
-        args: chromium.args,
-        headless: chromium.headless,
-      });
-    }
 
     const page = await browser.newPage();
     await page.goto(this.url);
