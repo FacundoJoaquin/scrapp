@@ -1,10 +1,6 @@
-const puppeteer = require('puppeteer-core')
-const chromium = require('@sparticuz/chromium')
+const puppeteer = require('puppeteer-core');
+const chromium = require('@sparticuz/chromium');
 const edgeChromium = require('chrome-aws-lambda');
-const LOCAL_CHROME_EXECUTABLE = '/usr/bin/google-chrome';
-
-chromium.setHeadlessMode = true;
-
 
 class Scraper {
   constructor(url) {
@@ -13,14 +9,23 @@ class Scraper {
 
   async scrape() {
     const isLocal = process.env.AWS_EXECUTION_ENV === undefined;
-    const executablePath = (await edgeChromium.executablePath) || LOCAL_CHROME_EXECUTABLE;
-    const browser = isLocal
-      ? await puppeteer.launch({ executablePath, args: edgeChromium.args, headless: true })
-      : await puppeteer.launch({
-          executablePath: await chromium.executablePath(),
-          args: chromium.args,
-          headless: chromium.headless,
-        });
+
+    let browser;
+    if (isLocal) {
+      const executablePath = await edgeChromium.executablePath || '/usr/bin/google-chrome';
+      browser = await puppeteer.launch({ 
+        executablePath,
+        args: edgeChromium.args,
+        headless: true
+      });
+    } else {
+      const executablePath = await chromium.executablePath();
+      browser = await puppeteer.launch({
+        executablePath,
+        args: chromium.args,
+        headless: chromium.headless,
+      });
+    }
 
     const page = await browser.newPage();
     await page.goto(this.url);
