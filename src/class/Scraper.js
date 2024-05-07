@@ -3,6 +3,9 @@ const chromium = require('@sparticuz/chromium')
 const edgeChromium = require('chrome-aws-lambda');
 const LOCAL_CHROME_EXECUTABLE = '/usr/bin/google-chrome';
 
+chromium.setHeadlessMode = true;
+
+
 class Scraper {
   constructor(url) {
     this.url = url;
@@ -14,7 +17,7 @@ class Scraper {
     const browser = isLocal
       ? await puppeteer.launch({ executablePath, args: edgeChromium.args, headless: true })
       : await puppeteer.launch({
-          executablePath: (await chromium.executablePath()) || LOCAL_CHROME_EXECUTABLE,
+          executablePath: await chromium.executablePath(),
           args: chromium.args,
           headless: chromium.headless,
         });
