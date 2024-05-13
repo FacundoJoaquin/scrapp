@@ -26,7 +26,7 @@ class Surwal extends Scraper {
             const match = price.match(priceRegex); 
             const parsedPrice = match ? match[0].replace(',', '') : null; 
 
-            return { title, location, imgUrl, url, price: parsedPrice, company: "Surwal" };
+            return { title, location, imgUrl, link: url, price: parsedPrice, company: "Surwal" };
         }));
         return properties;
     }
