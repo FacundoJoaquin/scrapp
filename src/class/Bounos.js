@@ -17,7 +17,8 @@ class BounosPropiedades extends Scraper {
             const locationAndPriceText = await page.evaluate(el => el ? el.textContent.trim() : '', locationAndPriceElement);
             const [location, price] = locationAndPriceText.split('|').map(str => str.trim());
 
-            return { title, location, price, imgUrl: false, link: 'http://www.bounospropiedades.com.ar/#/search/alquiler', company: 'Bounos Propiedades' };
+            const parsedPrice = price ? price.replace(/^\$/, '') : 'Sin precio';
+            return { title, location, price: parsedPrice, imgUrl: false, link: 'http://www.bounospropiedades.com.ar/#/search/alquiler', company: 'Bounos Propiedades' };
         }));
         return properties;
     }

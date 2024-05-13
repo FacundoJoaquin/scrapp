@@ -15,10 +15,11 @@ class Arnoldi extends Scraper {
       const anchorElement = await el.$('a[data-ng-href]');
       const imgElement = await el.$('.imageAndText > img');
 
-      // imageAndText
       const title = await page.evaluate(el => el.textContent, titleElement);
       const location = await page.evaluate(el => el.textContent, locationElement);
-      const price = await page.evaluate(el => el.textContent, priceElement);
+      let price = await page.evaluate(el => el.textContent, priceElement);
+      price = price.replace(/^\$/, '').trim(); 
+
       const href = await page.evaluate(el => el.getAttribute('href'), anchorElement);
       const link = `https://www.arnoldipropiedades.com.ar${href}`;
       const imgUrl = await page.evaluate(el => el.src, imgElement)
@@ -36,3 +37,4 @@ async function scrapeProperties() {
 }
 
 module.exports = Arnoldi;
+
