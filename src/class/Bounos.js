@@ -17,8 +17,16 @@ class BounosPropiedades extends Scraper {
             const locationAndPriceText = await page.evaluate(el => el ? el.textContent.trim() : '', locationAndPriceElement);
             const [location, price] = locationAndPriceText.split('|').map(str => str.trim());
 
-            const parsedPrice = price ? price.replace(/^\$/, '') : 'Sin precio';
-            return { title, location, price: parsedPrice, imgUrl: false, link: 'http://www.bounospropiedades.com.ar/#/search/alquiler', company: 'Bounos Propiedades' };
+            const imgElement = await el.$eval('div._2AASowRfFnpO60CpDxCn7s', div => {
+                const style = window.getComputedStyle(div);
+                const backgroundImage = style.getPropertyValue('background-image');
+                const urlMatch = backgroundImage.match(/url\(["']?([^"']+)["']?\)/);
+                return urlMatch ? urlMatch[1] : null;
+              });
+              
+
+            const parsedPrice = price ? price.replace(/^\$/, '') : false;
+            return { title, location, price: parsedPrice, imgUrl: imgElement, link: 'http://www.bounospropiedades.com.ar/#/search/alquiler', company: 'Bounos Propiedades' };
         }));
         return properties;
     }
@@ -29,5 +37,7 @@ async function scrapeProperties() {
     const properties = await scraper.scrape();
     console.log(properties);
 }
+scrapeProperties()
+
 
 module.exports = BounosPropiedades

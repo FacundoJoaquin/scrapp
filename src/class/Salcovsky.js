@@ -13,7 +13,7 @@ class Salcovsky extends Scraper {
             const imgElement = await el.$eval('figure a img', img => img.dataset.src);
             const title = await page.evaluate(el => el.textContent, titleAndUrlElement);
             const link = await page.evaluate(el => el.getAttribute('href'), titleAndUrlElement);
-            return { title, location: false, price: 'Sin precio', imgUrl: imgElement || false, link, company: 'Salcovsky' };
+            return { title, location: false, price: false, imgUrl: imgElement || false, link, company: 'Salcovsky' };
         }));
         return properties;
     }
@@ -26,6 +26,5 @@ async function scrapeProperties() {
     const properties = await scraper.scrape();
     console.log(properties);
 }
-
 
 module.exports = Salcovsky;
