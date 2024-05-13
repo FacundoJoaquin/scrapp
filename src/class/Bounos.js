@@ -37,7 +37,6 @@ async function scrapeProperties() {
     const properties = await scraper.scrape();
     console.log(properties);
 }
-scrapeProperties()
 
 
 module.exports = BounosPropiedades
