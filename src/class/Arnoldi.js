@@ -24,7 +24,7 @@ class Arnoldi extends Scraper {
       const link = `https://www.arnoldipropiedades.com.ar${href}`;
       const imgUrl = await page.evaluate(el => el.src, imgElement)
 
-      return { title, location, price, link, imgUrl, company: "Arnoldi Propiedades" };
+      return { title, location, price, link, imgUrl, company: "Arnoldi" };
     }));
     return properties;
   }

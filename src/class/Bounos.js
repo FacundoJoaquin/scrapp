@@ -26,7 +26,7 @@ class BounosPropiedades extends Scraper {
               
 
             const parsedPrice = price ? price.replace(/^\$/, '') : false;
-            return { title, location, price: parsedPrice, imgUrl: imgElement, link: 'http://www.bounospropiedades.com.ar/#/search/alquiler', company: 'Bounos Propiedades' };
+            return { title, location, price: parsedPrice, imgUrl: imgElement, link: 'http://www.bounospropiedades.com.ar/#/search/alquiler', company: 'Bounos' };
         }));
         return properties;
     }

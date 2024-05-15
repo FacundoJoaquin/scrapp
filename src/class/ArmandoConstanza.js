@@ -23,7 +23,7 @@ class ArmandoConstanza extends Scraper {
             const url = await page.evaluate(el => el.href, urlElement)
             const rawPrice = await page.evaluate(el => el.textContent, priceElement);
             const price = rawPrice.replace(/^\$/, '').replace(/CAP.*/, ''); 
-            return { title, location, imgUrl, link: url, price, company: "Armando Constanza" };
+            return { title, location, imgUrl, link: url, price, company: "Armando" };
         }));
         return properties;
     }

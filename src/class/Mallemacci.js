@@ -23,7 +23,7 @@ class BounosPropiedades extends Scraper {
       const imgUrl = await page.evaluate(el => el.src, imgElement);
       const link = await page.evaluate(el => el.href, anchorElement);
 
-      return { title, location, price, imgUrl, link, company: "Mallemacci Propiedades" };
+      return { title, location, price, imgUrl, link, company: "Mallemacci" };
     }));
     return properties;
   }

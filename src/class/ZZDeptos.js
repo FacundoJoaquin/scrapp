@@ -29,7 +29,7 @@ class ZZDeptos extends Scraper {
         location,
         link,
         imgUrl: imgElement || false,
-        company: "ZZ Propiedades"
+        company: "ZZ"
       };
     }));
 
