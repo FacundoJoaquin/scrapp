@@ -11,6 +11,9 @@ const Salcovsky = require('./class/Salcovsky');
 const Surwal = require('./class/Surwal');
 const ZZDeptos = require('./class/ZZDeptos');
 const { scrapeAndRespond } = require('./functions');
+const MemoryBankManager = require('./utils/memoryBankManager');
+const ScraperFactory = require('./utils/scraperFactory');
+const MemoryCollector = require('../memory_bank/utils/memory_collector');
 
 const app = express();
 app.use(cors());
@@ -26,12 +29,12 @@ for (const file of scraperFiles) {
   scraperClasses.push(module.default || module);
 }
 
-
-
+// Basic routes
 app.get('/', (req, res) => {
   res.json('Api is working.');
 });
 
+// Scraper routes
 app.get('/armando', async (req, res) => {
   scrapeAndRespond(ArmandoConstanza, res);
 });
@@ -54,9 +57,112 @@ app.get('/zz', async (req, res) => {
   scrapeAndRespond(ZZDeptos, res);
 });
 
+// New Memory Bank routes
+app.get('/memory-bank', async (req, res) => {
+  try {
+    const documents = await MemoryBankManager.listDocuments();
+    res.json({ documents });
+  } catch (error) {
+    res.status(500).json({ error: 'Error listing memory bank documents', details: error.toString() });
+  }
+});
 
+app.get('/memory-bank/:document', async (req, res) => {
+  try {
+    const content = await MemoryBankManager.readDocument(req.params.document);
+    res.json({ content });
+  } catch (error) {
+    res.status(500).json({ error: 'Error reading memory bank document', details: error.toString() });
+  }
+});
 
+app.post('/memory-bank/:document', async (req, res) => {
+  try {
+    const { content } = req.body;
+    if (!content) {
+      return res.status(400).json({ error: 'Content is required' });
+    }
+    
+    await MemoryBankManager.writeDocument(req.params.document, content);
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: 'Error writing to memory bank document', details: error.toString() });
+  }
+});
 
+app.post('/memory-bank/:document/append', async (req, res) => {
+  try {
+    const { content } = req.body;
+    if (!content) {
+      return res.status(400).json({ error: 'Content is required' });
+    }
+    
+    await MemoryBankManager.appendToDocument(req.params.document, content);
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: 'Error appending to memory bank document', details: error.toString() });
+  }
+});
 
+// Memory Collector routes
+app.get('/memory-bank/summary/generate', async (req, res) => {
+  try {
+    const summary = await MemoryCollector.generateSummary();
+    res.json({ success: true, summary });
+  } catch (error) {
+    res.status(500).json({ error: 'Error generating memory bank summary', details: error.toString() });
+  }
+});
+
+app.get('/memory-bank/stats', async (req, res) => {
+  try {
+    const stats = await MemoryCollector.generateScraperStats();
+    res.json(stats);
+  } catch (error) {
+    res.status(500).json({ error: 'Error generating scraper statistics', details: error.toString() });
+  }
+});
+
+app.get('/memory-bank/report', async (req, res) => {
+  try {
+    const report = await MemoryCollector.generateStatusReport();
+    res.json(report);
+  } catch (error) {
+    res.status(500).json({ error: 'Error generating memory bank report', details: error.toString() });
+  }
+});
+
+// New Scraper Creation Endpoint
+app.post('/scrapers', async (req, res) => {
+  try {
+    const { name, url, selector, mappings } = req.body;
+    
+    // Validate required fields
+    if (!name || !url || !selector || !mappings) {
+      return res.status(400).json({ 
+        error: 'Missing required fields', 
+        required: ['name', 'url', 'selector', 'mappings'] 
+      });
+    }
+    
+    // Create the scraper
+    const filePath = await ScraperFactory.createScraper(name, url, selector, mappings);
+    
+    // Add a route for the new scraper
+    const className = name.replace(/[^a-zA-Z0-9]/g, '');
+    const ScraperClass = require(filePath);
+    app.get(`/${className.toLowerCase()}`, async (reqInner, resInner) => {
+      scrapeAndRespond(ScraperClass, resInner);
+    });
+    
+    res.json({ 
+      success: true, 
+      message: `Created scraper ${name}`,
+      endpoint: `/${className.toLowerCase()}`
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Error creating scraper', details: error.toString() });
+  }
+});
 
 module.exports = app;

@@ -14,6 +14,7 @@ class Surwal extends Scraper {
             const imgElement = await el.$('.prop-img > img');
             const urlElement = await el.$('#propiedades > li > a');
             const priceElement = await el.$('.prop-valor-nro')
+            console.log('URL------------------------>', urlElement)
             
             const title = await page.evaluate(el => el.querySelector('.prop-desc-tipo-ub').textContent, titleAndAddressElement);
             const address = await page.evaluate(el => el.querySelector('.prop-desc-dir').textContent, titleAndAddressElement);

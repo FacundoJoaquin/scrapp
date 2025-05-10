@@ -1,5 +1,16 @@
 const Scraper = require('./Scraper.js')
 
+function parsePrice(rawPrice) {
+    if (!rawPrice) return '';
+    return rawPrice
+        .trim()                    // Remove leading/trailing whitespace
+        .replace(/^\$/, '')        // Remove $ symbol
+        .replace(/\./g, '')        // Remove dots (thousand separators)
+        .replace(/\s+/g, '')       // Remove all whitespace
+        .replace(/CAP.*/, '')      // Remove everything after CAP
+        .replace(/[^\d]/g, '');    // Keep only numbers
+}
+
 class ArmandoConstanza extends Scraper {
     constructor() {
         super(`https://www.armandocostanza.com/Buscar?operation=2&ptypes=2&locations=30446&o=2,2&1=1`);
@@ -22,7 +33,7 @@ class ArmandoConstanza extends Scraper {
             const imgUrl = await page.evaluate(el => el.src, imgElement)
             const url = await page.evaluate(el => el.href, urlElement)
             const rawPrice = await page.evaluate(el => el.textContent, priceElement);
-            const price = rawPrice.replace(/^\$/, '').replace(/CAP.*/, ''); 
+            const price = parsePrice(rawPrice);
             return { title, location, imgUrl, link: url, price, company: "Armando" };
         }));
         return properties;

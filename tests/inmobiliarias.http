@@ -1,0 +1,53 @@
+### API Status Check
+GET {{BASE_URL}}/
+Content-Type: application/json
+
+### Armando Constanza
+GET {{BASE_URL}}/armando
+Content-Type: application/json
+
+### Arnoldi
+GET {{BASE_URL}}/arnoldi
+Content-Type: application/json
+
+### Bounos
+GET {{BASE_URL}}/bounos
+Content-Type: application/json
+
+### Mallemacci
+GET {{BASE_URL}}/mallemacci
+Content-Type: application/json
+
+### Salcovsky
+GET {{BASE_URL}}/salcovsky
+Content-Type: application/json
+
+### Surwal
+GET {{BASE_URL}}/surwal
+Content-Type: application/json
+
+### ZZ Deptos
+GET {{BASE_URL}}/zz
+Content-Type: application/json
+
+### ECA Propiedades
+GET {{BASE_URL}}/ecapropiedades
+Content-Type: application/json
+
+### Crear nuevo Scraper (ECA Propiedades)
+POST {{BASE_URL}}/scrapers
+Content-Type: application/json
+
+{
+  "name": "ECAPropiedades",
+  "url": "https://ecapropiedades.com.ar/propiedades/2/alquiler",
+  "selector": ".col-md-8",
+  "mappings": {
+    "title": ".text-white.mb-12",
+    "location": "span:has(span.mr-10)",
+    "price": ".p-tag.bg-lemon",
+    "imgUrl": ".property-image img",
+    "url": ".block.dark-hover"
+  }
+}
+
