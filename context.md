@@ -22,14 +22,30 @@ El sistema utiliza una clase base `Scraper` que define el comportamiento común 
 class Scraper {
   constructor(url) {
     this.url = url;
+    // Configuración de paginación
+    this.pagination = {
+      enabled: false,
+      type: 'none', // 'none', 'button', 'url'
+      selector: '',
+      maxPages: 0,
+      urlTemplate: '',
+      hasNextSelector: '',
+      nextButtonSelector: '',
+    };
   }
 
   async scrape() {
     // Código común para iniciar navegador, abrir página, etc.
     // ...
-    const data = await this.scrapePage(page);
+    // Si la paginación está habilitada, recorremos todas las páginas
+    if (this.pagination.enabled) {
+      allProperties = await this.scrapeAllPages(page);
+    } else {
+      // Sin paginación, solo scrapeamos la página actual
+      allProperties = await this.scrapePage(page);
+    }
     // ...
-    return data;
+    return allProperties;
   }
 
   async scrapePage(page) {
@@ -49,6 +65,14 @@ class ArmandoConstanza extends Scraper {
   constructor() {
     super('https://www.armandocostanza.com/Buscar?operation=2&ptypes=2&locations=30446&o=2,2&1=1');
     this.selector = '.resultados-list > li';
+    
+    // Configuración opcional de paginación
+    this.configurePagination({
+      enabled: true,
+      type: 'url',
+      selector: '.pagination a',
+      urlTemplate: 'https://www.armandocostanza.com/Buscar/page/{{PAGE}}?operation=2&ptypes=2',
+    });
   }
 
   async scrapePage(page) {
@@ -69,7 +93,8 @@ El sistema expone endpoints para cada inmobiliaria:
 - `GET /salcovsky` - Scraper para Salcovsky
 - `GET /surwal` - Scraper para Surwal
 - `GET /zz` - Scraper para ZZ Deptos
-- `GET /ecapropiedades` - Scraper para ECA Propiedades (recién añadido)
+- `GET /ecapropiedades` - Scraper para ECA Propiedades
+- `GET /lginmobiliaria` - Scraper para LG Inmobiliaria
 
 ### 4. Memory Bank
 
@@ -99,14 +124,16 @@ class MemoryBankManager {
 
 #### ScraperFactory
 
-Facilita la creación de nuevos scrapers:
+Facilita la creación de nuevos scrapers de forma programática:
 
 ```javascript
 // src/utils/scraperFactory.js
 class ScraperFactory {
-  static async createScraper(name, url, selector, mappings) { /* ... */ }
-  static generateScraperClass(className, url, selector, mappings) { /* ... */ }
+  static async createScraper(name, url, selector, mappings, pagination = null) { /* ... */ }
+  static updateAppJsWithEndpoint(className) { /* ... */ }
+  static generateScraperClass(className, url, selector, mappings, pagination) { /* ... */ }
   static generateMappingCode(mappings) { /* ... */ }
+  static generatePaginationCode(pagination) { /* ... */ }
 }
 ```
 
@@ -138,12 +165,61 @@ class MemoryCollector {
     "price": ".precio-propiedad",
     "imgUrl": ".imagen-propiedad img",
     "url": ".detalle-propiedad a"
+  },
+  "pagination": {
+    "enabled": true,
+    "type": "url",
+    "selector": ".paginacion a",
+    "urlTemplate": "https://ejemplo-inmobiliaria.com/alquileres/pagina/{{PAGE}}",
+    "maxPages": 5
   }
 }
 ```
 
 2. **Enviar al API**: Hacer un POST a `/scrapers` con el JSON
-3. **Acceder al nuevo endpoint**: Usar el endpoint generado (ej: `/nombreinmobiliaria`)
+3. **El sistema automáticamente**:
+   - Crea el archivo de clase para el scraper
+   - Actualiza el archivo app.js para añadir el import y el endpoint
+   - Documenta la nueva inmobiliaria en el memory bank
+4. **Acceder al nuevo endpoint**: Usar el endpoint generado (ej: `/nombreinmobiliaria`)
+
+## Sistema de Paginación
+
+El proyecto incluye un sistema de paginación robusto que permite extraer datos de sitios con múltiples páginas de resultados:
+
+### Tipos de paginación soportados:
+
+1. **Paginación por URL (`type: 'url'`)**:
+   - Navega directamente a URLs construidas con un patrón
+   - Utiliza un marcador `{{PAGE}}` que se reemplaza por el número de página
+   - Ejemplo: `https://ejemplo.com/propiedades/pagina/{{PAGE}}`
+
+2. **Paginación por botón (`type: 'button'`)**:
+   - Encuentra y hace clic en un botón de "siguiente página"
+   - Requiere un selector para el botón (nextButtonSelector)
+   - Espera a que se cargue la nueva página después del clic
+
+### Configuración de paginación:
+
+```javascript
+this.configurePagination({
+  enabled: true,        // Activa la paginación
+  type: 'url',          // Tipo de paginación ('url' o 'button')
+  selector: '.pagination a',  // Selector para detectar enlaces de paginación
+  urlTemplate: 'https://ejemplo.com/propiedades/pagina/{{PAGE}}',  // Plantilla para URLs
+  maxPages: 5,          // Límite máximo de páginas (0 = sin límite)
+  nextButtonSelector: '.pagination .next'  // Solo para type: 'button'
+});
+```
+
+## Actualizaciones Automáticas
+
+El sistema actualiza automáticamente el archivo `app.js` cuando se crea un nuevo scraper:
+
+1. **Añade la importación** del nuevo scraper a la lista de imports
+2. **Crea el endpoint** correspondiente para acceder al scraper
+3. **Mantiene la consistencia de formato** con el resto del código
+4. **Evita duplicaciones** comprobando si el código ya existe
 
 ## Endpoints disponibles
 
@@ -156,6 +232,7 @@ class MemoryCollector {
 - `GET /surwal` - Propiedades de Surwal
 - `GET /zz` - Propiedades de ZZ Deptos
 - `GET /ecapropiedades` - Propiedades de ECA Propiedades
+- `GET /lginmobiliaria` - Propiedades de LG Inmobiliaria
 
 ### Memory Bank
 - `GET /memory-bank` - Listar documentos disponibles
@@ -203,4 +280,4 @@ El servicio está configurado para funcionar en Vercel, según se indica en el a
 
 ## Información adicional
 
-El sistema está diseñado para ser fácilmente extensible mediante la API de creación de scrapers, lo que permite añadir nuevas inmobiliarias sin necesidad de modificar el código base. 
+El sistema está diseñado para ser fácilmente extensible mediante la API de creación de scrapers, lo que permite añadir nuevas inmobiliarias sin necesidad de modificar el código base. La implementación del sistema de paginación y actualizaciones automáticas garantiza una experiencia fluida al expandir el proyecto con nuevos orígenes de datos. 

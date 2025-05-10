@@ -10,6 +10,11 @@ const Mallemacci = require('./class/Mallemacci');
 const Salcovsky = require('./class/Salcovsky');
 const Surwal = require('./class/Surwal');
 const ZZDeptos = require('./class/ZZDeptos');
+const LGInmobiliaria = require('./class/LGInmobiliaria2');
+const RaquelInmobiliaria = require('./class/RaquelInmobiliaria');
+const Zuchelli = require('./class/Zuchelli');
+
+
 const { scrapeAndRespond } = require('./functions');
 const MemoryBankManager = require('./utils/memoryBankManager');
 const ScraperFactory = require('./utils/scraperFactory');
@@ -56,6 +61,17 @@ app.get('/surwal', async (req, res) => {
 app.get('/zz', async (req, res) => {
   scrapeAndRespond(ZZDeptos, res);
 });
+app.get('/lginmobiliaria', async (req, res) => {
+  scrapeAndRespond(LGInmobiliaria, res);
+});
+app.get('/raquelinmobiliaria', async (req, res) => {
+  scrapeAndRespond(RaquelInmobiliaria, res);
+});
+app.get('/zuchelli', async (req, res) => {
+  scrapeAndRespond(Zuchelli, res);
+});
+
+
 
 // New Memory Bank routes
 app.get('/memory-bank', async (req, res) => {
@@ -133,9 +149,9 @@ app.get('/memory-bank/report', async (req, res) => {
 });
 
 // New Scraper Creation Endpoint
-app.post('/scrapers', async (req, res) => {
+app.post('/scrapers', async (req, res) => { 
   try {
-    const { name, url, selector, mappings } = req.body;
+    const { name, url, selector, mappings, pagination } = req.body;
     
     // Validate required fields
     if (!name || !url || !selector || !mappings) {
@@ -146,7 +162,7 @@ app.post('/scrapers', async (req, res) => {
     }
     
     // Create the scraper
-    const filePath = await ScraperFactory.createScraper(name, url, selector, mappings);
+    const filePath = await ScraperFactory.createScraper(name, url, selector, mappings, pagination);
     
     // Add a route for the new scraper
     const className = name.replace(/[^a-zA-Z0-9]/g, '');

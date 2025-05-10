@@ -51,3 +51,133 @@
 - URL: https://ecapropiedades.com.ar/propiedades/2/alquiler
 - Description: Scraper for ECAPropiedades real estate agency
 - Added: 2025-05-10
+
+## LGInmobiliaria
+- URL: https://lginmobiliaria.com.ar/propiedades/2/alquiler
+- Description: Scraper for LGInmobiliaria real estate agency
+- Added: 2025-05-10
+
+## LGInmobiliaria
+- URL: https://lginmobiliaria.com.ar/propiedades-encontradas/?status=venta
+- Description: Scraper for LGInmobiliaria real estate agency
+- Added: 2025-05-10
+
+## LGInmobiliaria
+- URL: https://lginmobiliaria.com.ar/propiedades-encontradas/?status=venta
+- Description: Scraper for LGInmobiliaria real estate agency
+- Added: 2025-05-10
+
+## LGInmobiliaria
+- URL: https://lginmobiliaria.com.ar/propiedades-encontradas/?status=venta
+- Description: Scraper for LGInmobiliaria real estate agency
+- Added: 2025-05-10
+
+## LGInmobiliaria
+- URL: https://lginmobiliaria.com.ar/propiedades-encontradas/?status=alquiler
+- Description: Scraper for LGInmobiliaria real estate agency
+- Added: 2025-05-10
+
+## LGInmobiliaria
+- URL: https://lginmobiliaria.com.ar/propiedades-encontradas/?status=venta
+- Description: Scraper for LGInmobiliaria real estate agency
+- Added: 2025-05-10
+
+## LGInmobiliaria
+- URL: https://lginmobiliaria.com.ar/propiedades-encontradas/?status=venta
+- Description: Scraper for LGInmobiliaria real estate agency
+- Added: 2025-05-10
+
+## LGInmobiliaria
+- URL: https://lginmobiliaria.com.ar/propiedades-encontradas/?status=venta
+- Description: Scraper for LGInmobiliaria real estate agency
+- Added: 2025-05-10
+
+## LGInmobiliaria
+- URL: https://lginmobiliaria.com.ar/propiedades-encontradas/?status=alquiler
+- Description: Scraper for LGInmobiliaria real estate agency
+- Added: 2025-05-10
+
+## RaquelInmobiliaria
+- URL: https://raquelinmobiliaria.com.ar/blog/category/ventas/
+- Description: Scraper for RaquelInmobiliaria real estate agency
+- Added: 2025-05-10
+
+## RaquelInmobiliaria
+- URL: https://raquelinmobiliaria.com.ar/blog/category/ventas/
+- Description: Scraper for RaquelInmobiliaria real estate agency
+- Added: 2025-05-10
+
+## RaquelInmobiliaria
+- URL: https://raquelinmobiliaria.com.ar/blog/category/ventas/
+- Description: Scraper for RaquelInmobiliaria real estate agency
+- Added: 2025-05-10
+
+## RaquelInmobiliaria
+- URL: https://raquelinmobiliaria.com.ar/blog/category/ventas/
+- Description: Scraper for RaquelInmobiliaria real estate agency
+- Added: 2025-05-10
+
+## RaquelInmobiliaria
+- URL: https://raquelinmobiliaria.com.ar/blog/category/ventas/
+- Description: Scraper for RaquelInmobiliaria real estate agency
+- Added: 2025-05-10
+
+## Zuchelli
+- URL: https://zuchelihermanos.com/operaciones-propiedad/venta/
+- Description: Scraper for Zuchelli real estate agency
+- Added: 2025-05-10
+
+## Zuchelli
+- URL: https://zuchelihermanos.com/operaciones-propiedad/venta/
+- Description: Scraper for Zuchelli real estate agency
+- Added: 2025-05-10
+
+## Zuchelli
+- URL: https://zuchelihermanos.com/operaciones-propiedad/venta/
+- Description: Scraper for Zuchelli real estate agency
+- Added: 2025-05-10
+
+## Zuchelli
+- URL: https://zuchelihermanos.com/operaciones-propiedad/venta/
+- Description: Scraper for Zuchelli real estate agency
+- Added: 2025-05-10
+
+## Zuchelli
+- URL: https://zuchelihermanos.com/operaciones-propiedad/venta/
+- Description: Scraper for Zuchelli real estate agency
+- Added: 2025-05-10
+
+## Zuchelli
+- URL: https://zuchelihermanos.com/operaciones-propiedad/venta/
+- Description: Scraper for Zuchelli real estate agency
+- Added: 2025-05-10
+
+## Zuchelli
+- URL: https://zuchelihermanos.com/operaciones-propiedad/venta/
+- Description: Scraper for Zuchelli real estate agency
+- Added: 2025-05-10
+
+## Zuchelli
+- URL: https://zuchelihermanos.com/operaciones-propiedad/venta/
+- Description: Scraper for Zuchelli real estate agency
+- Added: 2025-05-10
+
+## Zuchelli
+- URL: https://zuchelihermanos.com/operaciones-propiedad/venta/
+- Description: Scraper for Zuchelli real estate agency
+- Added: 2025-05-10
+
+## Zuchelli
+- URL: https://zuchelihermanos.com/operaciones-propiedad/venta/
+- Description: Scraper for Zuchelli real estate agency
+- Added: 2025-05-10
+
+## Zuchelli
+- URL: https://zuchelihermanos.com/operaciones-propiedad/venta/
+- Description: Scraper for Zuchelli real estate agency
+- Added: 2025-05-10
+
+## Zuchelli
+- URL: https://zuchelihermanos.com/operaciones-propiedad/alquiler/
+- Description: Scraper for Zuchelli real estate agency
+- Added: 2025-05-10
