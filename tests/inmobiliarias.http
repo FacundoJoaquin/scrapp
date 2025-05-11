@@ -45,45 +45,18 @@ Content-Type: application/json
 GET {{BASE_URL}}/zuchelli
 Content-Type: application/json
 
-### Crear nuevo Scraper (ECA Propiedades)
-POST {{BASE_URL}}/scrapers
+
+### TestScraper
+GET {{BASE_URL}}/testscraper
 Content-Type: application/json
 
-{
-  "name": "Zuchelli",
-  "url": "https://zuchelihermanos.com/operaciones-propiedad/alquiler/",
-  "selector": ".property-item.clearfix",
-  "mappings": {
-        "title": "h4 > a",
-    "location": ".detail > p",
-    "price": "h5.price",
-    "imgUrl": ".attachment-property-thumb-image.size-property-thumb-image.wp-post-image",
-    "url": "a.more-details",
-    "company": "Zuchelli"
-  }
-}
-
-### LG Inmobiliaria (con paginación)
-POST {{BASE_URL}}/scrapers
+### NewScraperTest
+GET {{BASE_URL}}/newscrapertest
 Content-Type: application/json
 
-{
-  "name": "LGInmobiliaria",
-  "url": "https://lginmobiliaria.com.ar/propiedades-encontradas/?status=alquiler",
-  "selector": "article.property-item",
-  "mappings": {
-    "title": "h4 > a",
-    "location": ".detail > p",
-    "price": "h5.price",
-    "imgUrl": ".attachment-property-thumb-image.size-property-thumb-image.wp-post-image",
-    "url": "a.more-details"
-  },
-  "pagination": {
-    "enabled": true,
-    "type": "url",
-    "selector": ".pagination.rh_pagination_classic a.real-btn",
-    "urlTemplate": "https://lginmobiliaria.com.ar/propiedades-encontradas/page/{{PAGE}}/?status=alquiler",
-    "maxPages": 5
-  }
-}
+### UnoPropiedades
+GET {{BASE_URL}}/unopropiedades
+Content-Type: application/json
+
+
 

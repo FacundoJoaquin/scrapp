@@ -1,0 +1,43 @@
+
+### Crear nuevo Scraper (ECA Propiedades)
+POST {{BASE_URL}}/scrapers
+Content-Type: application/json
+
+{
+  "name": "UnoPropiedades",
+  "url": "https://www.unoinmuebles.com.ar/alquileres",
+  "selector": "#main-properties-container",
+  "mappings": {
+    "title": ".prop-footer > div > p",
+    "location": ".font-size: 12px > p",
+    "price": "h5.price",
+    "imgUrl": ".attachment-property-thumb-image.size-property-thumb-image.wp-post-image",
+    "url": "a.more-details",
+    "company": "Zuchelli"
+  }
+}
+
+### LG Inmobiliaria (con paginación)
+POST {{BASE_URL}}/scrapers
+Content-Type: application/json
+
+{
+  "name": "LGInmobiliaria",
+  "url": "https://lginmobiliaria.com.ar/propiedades-encontradas/?status=alquiler",
+  "selector": "article.property-item",
+  "mappings": {
+    "title": "h4 > a",
+    "location": ".detail > p",
+    "price": "h5.price",
+    "imgUrl": ".attachment-property-thumb-image.size-property-thumb-image.wp-post-image",
+    "url": "a.more-details"
+  },
+  "pagination": {
+    "enabled": true,
+    "type": "url",
+    "selector": ".pagination.rh_pagination_classic a.real-btn",
+    "urlTemplate": "https://lginmobiliaria.com.ar/propiedades-encontradas/page/{{PAGE}}/?status=alquiler",
+    "maxPages": 5
+  }
+}
+

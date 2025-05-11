@@ -13,6 +13,9 @@ const ZZDeptos = require('./class/ZZDeptos');
 const LGInmobiliaria = require('./class/LGInmobiliaria2');
 const RaquelInmobiliaria = require('./class/RaquelInmobiliaria');
 const Zuchelli = require('./class/Zuchelli');
+const UnoPropiedades = require('./class/UnoPropiedades');
+const ECAPropiedades = require('./class/ECAPropiedades');
+
 
 
 const { scrapeAndRespond } = require('./functions');
@@ -69,6 +72,12 @@ app.get('/raquelinmobiliaria', async (req, res) => {
 });
 app.get('/zuchelli', async (req, res) => {
   scrapeAndRespond(Zuchelli, res);
+});
+app.get('/unopropiedades', async (req, res) => {
+  scrapeAndRespond(UnoPropiedades, res);
+});
+app.get('/ecapropiedades', async (req, res) => {
+  scrapeAndRespond(ECAPropiedades, res);
 });
 
 

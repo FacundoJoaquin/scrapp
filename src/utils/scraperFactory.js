@@ -29,6 +29,9 @@ class ScraperFactory {
     // Update app.js to add the endpoint permanently
     this.updateAppJsWithEndpoint(className);
     
+    // Update inmobiliarias.http test file
+    this.updateTestFile(className);
+    
     // Update memory bank
     await MemoryBankManager.addRealEstateSource(
       name, 
@@ -272,6 +275,87 @@ module.exports = ${className};
     
     code += '\n        });';
     return code;
+  }
+  
+  /**
+   * Updates tests/inmobiliarias.http to add a test endpoint for the new scraper
+   * @param {string} className - The class name of the scraper
+   * @private
+   */
+  static updateTestFile(className) {
+    const testFilePath = path.join(__dirname, '../../tests/inmobiliarias.http');
+    
+    try {
+      // Check if the file exists
+      if (!fs.existsSync(testFilePath)) {
+        console.log('Test file not found, skipping update');
+        return;
+      }
+      
+      // Read the current test file content
+      let testFileContent = fs.readFileSync(testFilePath, 'utf8');
+      
+      // Check if the test endpoint already exists
+      const endpointPattern = new RegExp(`###.*\\n.*GET.*\\/${className.toLowerCase()}\\s`);
+      
+      // If endpoint already exists, no need to update
+      if (endpointPattern.test(testFileContent)) {
+        console.log(`Test endpoint for ${className} already exists in inmobiliarias.http`);
+        return;
+      }
+      
+      // Add new test endpoint with proper formatting
+      const newEndpoint = `
+### ${className}
+GET {{BASE_URL}}/${className.toLowerCase()}
+Content-Type: application/json`;
+      
+      // Determine the best place to insert the new endpoint
+      const createRequestPattern = /###\s+Crear nuevo Scraper/;
+      const createMatch = testFileContent.match(createRequestPattern);
+      
+      // Look for the last GET endpoint to place our new endpoint after it
+      const lastGetEndpointRegex = /### [^\n]+\nGET {{BASE_URL}}\/[a-z0-9]+\nContent-Type: application\/json\n/g;
+      let lastPosition = 0;
+      let match;
+      
+      while ((match = lastGetEndpointRegex.exec(testFileContent)) !== null) {
+        lastPosition = match.index + match[0].length;
+      }
+      
+      // If we found a position to insert after the last GET endpoint
+      if (lastPosition > 0 && (!createMatch || lastPosition < createMatch.index)) {
+        // Insert after the last GET endpoint
+        testFileContent = 
+          testFileContent.substring(0, lastPosition) + 
+          newEndpoint + "\n\n" + 
+          testFileContent.substring(lastPosition);
+      } else if (createMatch) {
+        // Insert before the create request section
+        testFileContent = testFileContent.replace(
+          createMatch[0],
+          `${newEndpoint}\n\n${createMatch[0]}`
+        );
+      } else {
+        // Append to the end of the file, ensuring there's a proper line break
+        if (!testFileContent.endsWith('\n\n')) {
+          if (testFileContent.endsWith('\n')) {
+            testFileContent += '\n';
+          } else {
+            testFileContent += '\n\n';
+          }
+        }
+        testFileContent += newEndpoint + '\n';
+      }
+      
+      // Write the updated content back to inmobiliarias.http
+      fs.writeFileSync(testFilePath, testFileContent);
+      console.log(`Updated inmobiliarias.http with test endpoint for ${className}`);
+      
+    } catch (error) {
+      console.error(`Error updating inmobiliarias.http: ${error}`);
+      // Don't throw the error, as this shouldn't block the scraper creation
+    }
   }
 }
 

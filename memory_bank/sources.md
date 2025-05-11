@@ -181,3 +181,63 @@
 - URL: https://zuchelihermanos.com/operaciones-propiedad/alquiler/
 - Description: Scraper for Zuchelli real estate agency
 - Added: 2025-05-10
+
+## UnoPropiedades
+- URL: https://www.unoinmuebles.com.ar/alquileres
+- Description: Scraper for UnoPropiedades real estate agency
+- Added: 2025-05-10
+
+## UnoPropiedades
+- URL: https://www.unoinmuebles.com.ar/alquileres
+- Description: Scraper for UnoPropiedades real estate agency
+- Added: 2025-05-10
+
+## UnoPropiedades
+- URL: https://www.unoinmuebles.com.ar/alquileres
+- Description: Scraper for UnoPropiedades real estate agency
+- Added: 2025-05-10
+
+## UnoPropiedades
+- URL: https://www.unoinmuebles.com.ar/alquileres
+- Description: Scraper for UnoPropiedades real estate agency
+- Added: 2025-05-10
+
+## UnoPropiedades
+- URL: https://www.unoinmuebles.com.ar/alquileres
+- Description: Scraper for UnoPropiedades real estate agency
+- Added: 2025-05-10
+
+## UnoPropiedades
+- URL: https://www.unoinmuebles.com.ar/alquileres
+- Description: Scraper for UnoPropiedades real estate agency
+- Added: 2025-05-10
+
+## UnoPropiedades
+- URL: https://www.unoinmuebles.com.ar/alquileres
+- Description: Scraper for UnoPropiedades real estate agency
+- Added: 2025-05-10
+
+## UnoPropiedades
+- URL: https://www.unoinmuebles.com.ar/alquileres
+- Description: Scraper for UnoPropiedades real estate agency
+- Added: 2025-05-10
+
+## UnoPropiedades
+- URL: https://www.unoinmuebles.com.ar/alquileres
+- Description: Scraper for UnoPropiedades real estate agency
+- Added: 2025-05-10
+
+## UnoPropiedades
+- URL: https://www.unoinmuebles.com.ar/alquileres
+- Description: Scraper for UnoPropiedades real estate agency
+- Added: 2025-05-10
+
+## UnoPropiedades
+- URL: https://www.unoinmuebles.com.ar/alquileres
+- Description: Scraper for UnoPropiedades real estate agency
+- Added: 2025-05-10
+
+## UnoPropiedades
+- URL: https://www.unoinmuebles.com.ar/alquileres
+- Description: Scraper for UnoPropiedades real estate agency
+- Added: 2025-05-10
