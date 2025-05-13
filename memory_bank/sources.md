@@ -241,3 +241,13 @@
 - URL: https://www.unoinmuebles.com.ar/alquileres
 - Description: Scraper for UnoPropiedades real estate agency
 - Added: 2025-05-10
+
+## BounosPropiedades
+- URL: https://bounospropiedades.com.ar/propiedades/?tipo=Alquiler
+- Description: Scraper for BounosPropiedades real estate agency
+- Added: 2025-05-12
+
+## BounosPropiedades
+- URL: https://bounospropiedades.com.ar/propiedades/?tipo=Alquiler
+- Description: Scraper for BounosPropiedades real estate agency
+- Added: 2025-05-13

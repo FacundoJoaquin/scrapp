@@ -14,7 +14,7 @@ function parsePrice(rawPrice) {
 class LGInmobiliaria extends Scraper {
   constructor() {
     super(
-      `https://lginmobiliaria.com.ar/propiedades-encontradas/?status=venta`
+      `https://lginmobiliaria.com.ar/propiedades-encontradas/?status=alquiler`
     );
     this.selector = "article.property-item";
     

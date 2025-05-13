@@ -4,16 +4,16 @@ POST {{BASE_URL}}/scrapers
 Content-Type: application/json
 
 {
-  "name": "UnoPropiedades",
-  "url": "https://www.unoinmuebles.com.ar/alquileres",
-  "selector": "#main-properties-container",
+  "name": "BounosPropiedades",
+  "url": "https://bounospropiedades.com.ar/propiedades/?tipo=Alquiler",
+  "selector": "article.propiedades__item",
   "mappings": {
-    "title": ".prop-footer > div > p",
-    "location": ".font-size: 12px > p",
-    "price": "h5.price",
-    "imgUrl": ".attachment-property-thumb-image.size-property-thumb-image.wp-post-image",
-    "url": "a.more-details",
-    "company": "Zuchelli"
+    "title": ".propiedades__location__address",
+    "location": ".propiedades__location__address",
+    "price": ".propiedades__location__address",
+    "imgUrl": ".relative img",
+    "url": ".propiedades__files a",
+    "company": ""
   }
 }
 
@@ -22,22 +22,23 @@ POST {{BASE_URL}}/scrapers
 Content-Type: application/json
 
 {
-  "name": "LGInmobiliaria",
-  "url": "https://lginmobiliaria.com.ar/propiedades-encontradas/?status=alquiler",
-  "selector": "article.property-item",
+  "name": "BounosPropiedades",
+  "url": "https://bounospropiedades.com.ar/propiedades/?tipo=Alquiler",
+  "selector": "article.propiedades__item",
   "mappings": {
-    "title": "h4 > a",
-    "location": ".detail > p",
-    "price": "h5.price",
-    "imgUrl": ".attachment-property-thumb-image.size-property-thumb-image.wp-post-image",
-    "url": "a.more-details"
+    "title": ".propiedades__location__address",
+    "location": ".propiedades__location__address",
+    "price": ".propiedades__location__address",
+    "imgUrl": ".relative img",
+    "url": ".propiedades__files a",
+    "company": "Bounos Propiedades"
   },
   "pagination": {
     "enabled": true,
     "type": "url",
-    "selector": ".pagination.rh_pagination_classic a.real-btn",
-    "urlTemplate": "https://lginmobiliaria.com.ar/propiedades-encontradas/page/{{PAGE}}/?status=alquiler",
-    "maxPages": 5
+    "selector": ".pagination__item a",
+    "urlTemplate": "https://bounospropiedades.com.ar/propiedades/{{PAGE}}?tipo=Alquiler",
+    "maxPages": 3,
+    "nextButtonSelector": ""
   }
 }
-

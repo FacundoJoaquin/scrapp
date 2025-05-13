@@ -30,7 +30,7 @@ Content-Type: application/json
 GET {{BASE_URL}}/zz
 Content-Type: application/json
 
-### LG Inmobiliaria
+### alquiler Inmobiliaria
 GET {{BASE_URL}}/lginmobiliaria
 Content-Type: application/json
 ### Raquel Inmobiliaria
@@ -45,18 +45,14 @@ Content-Type: application/json
 GET {{BASE_URL}}/zuchelli
 Content-Type: application/json
 
-
-### TestScraper
-GET {{BASE_URL}}/testscraper
-Content-Type: application/json
-
-### NewScraperTest
-GET {{BASE_URL}}/newscrapertest
-Content-Type: application/json
-
 ### UnoPropiedades
 GET {{BASE_URL}}/unopropiedades
 Content-Type: application/json
+
+### BounosPropiedades
+GET {{BASE_URL}}/bounospropiedades
+Content-Type: application/json
+
 
 
 

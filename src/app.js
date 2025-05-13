@@ -15,6 +15,8 @@ const RaquelInmobiliaria = require('./class/RaquelInmobiliaria');
 const Zuchelli = require('./class/Zuchelli');
 const UnoPropiedades = require('./class/UnoPropiedades');
 const ECAPropiedades = require('./class/ECAPropiedades');
+const BounosPropiedades = require('./class/BounosPropiedades');
+
 
 
 
@@ -79,6 +81,10 @@ app.get('/unopropiedades', async (req, res) => {
 app.get('/ecapropiedades', async (req, res) => {
   scrapeAndRespond(ECAPropiedades, res);
 });
+app.get('/bounospropiedades', async (req, res) => {
+  scrapeAndRespond(BounosPropiedades, res);
+});
+
 
 
 
